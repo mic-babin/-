@@ -1,0 +1,90 @@
+<form class="container my-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <nz-steps [nzCurrent]="current">
+      <nz-step nzTitle="Finished"></nz-step>
+      <nz-step nzTitle="In Progress"></nz-step>
+      <nz-step nzTitle="Waiting"></nz-step>
+    </nz-steps>
+
+    <div class="steps-content">{{ index }}</div>
+    <div class="steps-action">
+      <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+        <span>Previous</span>
+      </button>
+      <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+        <span>Next</span>
+      </button>
+      <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+        <span>Done</span>
+      </button>
+    </div>
+
+    <div
+      class="mb-3 d-inline"
+      *ngFor="let question of formTemplate"
+      [ngClass]="getStyle(question.col)"
+    >
+      <div class="d-inline" [ngSwitch]="question.type">
+        <!-- Text -->
+        <div *ngSwitchCase="'text'">
+          <app-text-box
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-text-box>
+        </div>
+        <!-- Number -->
+        <div *ngSwitchCase="'number'">
+          <app-text-box
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-text-box>
+        </div>
+        <!-- Email -->
+        <div *ngSwitchCase="'email'">
+          <app-text-box
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-text-box>
+        </div>
+        <!-- Address -->
+        <div *ngSwitchCase="'address'">
+          <app-address
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-address>
+        </div>
+        <!-- Date -->
+        <div *ngSwitchCase="'date'">
+          <app-date-picker
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-date-picker>
+        </div>
+        <!-- Boolean -->
+        <div *ngSwitchCase="'boolean'">
+          <app-boolean
+            [question]="question"
+            [formValidated]="formValidated"
+            formControlName="{{ question.label }}"
+          ></app-boolean>
+        </div>
+        <!-- Select -->
+        <div *ngSwitchCase="'select'">
+          <app-select
+            [question]="question"
+            formControlName="{{ question.label }}"
+          ></app-select>
+        </div>
+        <!-- File upload -->
+        <!-- <div *ngSwitchCase="'file'">
+          <app-file-upload></app-file-upload>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" style="max-width: 200px" type="submit">
+    Send
+  </button>
+</form>
+
+{{ form.value | json }} | {{ form.valid | json }}

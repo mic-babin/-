@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+  <label class="d-block">
+    {{ question.label }}
+    <span *ngIf="question.required === false">
+      {{ "OPTIONAL" | translate }}
+    </span>
+  </label>
+  <nz-radio-group formControlName="boolean" nzButtonStyle="solid">
+    <label nz-radio-button nzValue="0">Yes</label>
+    <label nz-radio-button nzValue="1">No</label>
+  </nz-radio-group>
+  <div *ngIf="validateField('boolean', 'required')" class="error-msg">
+    {{ "REQUIRED_FIELD" | translate }}
+  </div>
+  <!-- <div class="form-val">
+    {{ form.value | json }}
+  </div>
+
+  <div class="form-val">
+    {{ form.valid | json }}
+  </div> -->
+</form>

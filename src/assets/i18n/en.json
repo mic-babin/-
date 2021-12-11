@@ -1,0 +1,17 @@
+{
+  "LANGUAGE": "Language",
+  "ENGLISH": "English",
+  "FRENCH": "French",
+  "ADDRESS": "Address",
+  "NUMBER": "Number",
+  "STREET": "Street",
+  "CITY": "City",
+  "UNIT": "Unit/Other",
+  "POSTAL_CODE": "Postal code",
+  "REQUIRED_FIELD": "This field is required",
+  "INVALID_POSTAL_CODE": "Invalid postal code",
+  "NOT_YOUR_ADDRESS": "Not your address?",
+  "DONT_FIND_ADDRESS": "Can't find your address?",
+  "START_TYPING_ADDRESS": "Start typing your address...",
+  "INVALID_EMAIL": "Please enter a valid email address"
+}

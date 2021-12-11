@@ -1,0 +1,135 @@
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-12 mb-2" *ngIf="showGoogleAddress">
+      <label>
+        {{ "ADDRESS" | translate }}
+        <span *ngIf="question.required === false">
+          {{ "OPTIONAL" | translate }}
+        </span>
+      </label>
+      <nz-input-group [nzPrefix]="suffixIconSearch">
+        <input
+          nz-input
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
+          ngx-google-places-autocomplete
+          [options]="options"
+          #placesRef="ngx-places"
+          placeholder="{{ 'START_TYPING_ADDRESS' | translate }}"
+          (onAddressChange)="handleAddressChange($event)"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+      <span *ngIf="validateForm()" class="error-msg">{{
+        "REQUIRED_FIELD" | translate
+      }}</span>
+    </div>
+    <ng-container *ngIf="!showGoogleAddress">
+      <div class="col-md-3 mb-2">
+        <label for="number">{{ "NUMBER" | translate }}</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="number"
+          (blur)="onTouched()"
+        />
+        <span *ngIf="validateField('number', 'required')" class="error-msg">{{
+          "REQUIRED_FIELD" | translate
+        }}</span>
+      </div>
+      <div class="col-md-9 mb-2">
+        <label for="street">{{ "STREET" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="street"
+          (blur)="onTouched()"
+        />
+        <span *ngIf="validateField('street', 'required')" class="error-msg">{{
+          "REQUIRED_FIELD" | translate
+        }}</span>
+      </div>
+      <div class="col-md-10 mb-2">
+        <label for="city">{{ "CITY" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="city"
+          (blur)="onTouched()"
+        />
+        <span *ngIf="validateField('city', 'required')" class="error-msg">{{
+          "REQUIRED_FIELD" | translate
+        }}</span>
+      </div>
+      <div class="col-md-2 mb-2">
+        <label for="unit">{{ "UNIT" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="unit"
+          (blur)="onTouched()"
+        />
+      </div>
+      <div class="col-md-9 mb-2">
+        <label for="province">Province</label>
+        <ngx-bootstrap-multiselect
+          class="txt-main p-0 no-border"
+          [options]="this.language.get() == 'fr' ? provFr : provEn"
+          formControlName="province"
+          [texts]="this.language.get() == 'fr' ? textFr : textEn"
+          [settings]="settings"
+          (blur)="onTouched()"
+        ></ngx-bootstrap-multiselect>
+        <span *ngIf="validateField('province', 'required')" class="error-msg">{{
+          "REQUIRED_FIELD" | translate
+        }}</span>
+      </div>
+      <div class="col-md-3 mb-2">
+        <label for="postalCode">{{ "POSTAL_CODE" | translate }}</label>
+        <input
+          class="form-control"
+          formControlName="postalCode"
+          (blur)="onTouched()"
+        />
+        <span
+          *ngIf="validateField('postalCode', 'required')"
+          class="error-msg pe-3"
+          >{{ "REQUIRED_FIELD" | translate }}</span
+        >
+        <span
+          *ngIf="
+            this.form.controls.postalCode.hasError('pattern') &&
+            form.controls.postalCode.touched
+          "
+          class="error-msg"
+          >{{ "INVALID_POSTAL_CODE" | translate }}</span
+        >
+      </div>
+    </ng-container>
+
+    <span
+      class="txt-main text-decoration-underline pointer ms-1"
+      *ngIf="showGoogleAddress"
+      (click)="showGoogleAddress = !showGoogleAddress"
+      >{{ "DONT_FIND_ADDRESS" | translate }}</span
+    >
+    <span
+      class="txt-main text-decoration-underline pointer ms-1"
+      *ngIf="!showGoogleAddress"
+      (click)="showGoogleAddress = !showGoogleAddress"
+      >{{ "NOT_YOUR_ADDRESS" | translate }}</span
+    >
+  </div>
+
+  <!-- <div class="form-val pt-5">
+    {{ form.value | json }}
+  </div>
+
+  <div class="form-val">
+    {{ form.valid | json }}
+  </div> -->
+</form>

@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+  <div class="mb-2">
+    <label for="select">{{ question.label }}</label>
+    <ngx-bootstrap-multiselect
+      class="txt-main p-0 no-border"
+      [options]="this.language.get() == 'fr' ? fr : en"
+      formControlName="select"
+      [texts]="this.language.get() == 'fr' ? textFr : textEn"
+      [settings]="settings"
+      (blur)="onTouched()"
+    ></ngx-bootstrap-multiselect>
+    <span *ngIf="validateField('select', 'required')" class="error-msg">{{
+      "REQUIRED_FIELD" | translate
+    }}</span>
+  </div>
+
+  <!-- <div class="form-val">
+    {{ form.value | json }}
+  </div>
+
+  <div class="form-val">
+    {{ form.valid | json }}
+  </div> -->
+</form>

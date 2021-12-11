@@ -1,0 +1,22 @@
+<form [formGroup]="form" class="mb-2">
+  <label for="text">{{ question.label }}</label>
+  <input
+    class="form-control"
+    type="{{ question.type }}"
+    formControlName="text"
+    (blur)="onTouched()"
+  />
+  <span *ngIf="validateField('text', 'required')" class="error-msg">{{
+    "REQUIRED_FIELD" | translate
+  }}</span>
+  <span *ngIf="validateField('text', 'pattern')" class="error-msg">{{
+    "INVALID_EMAIL" | translate
+  }}</span>
+  <!-- <div class="form-val">
+    {{ form.value | json }}
+  </div>
+
+  <div class="form-val">
+    {{ form.valid | json }}
+  </div> -->
+</form>

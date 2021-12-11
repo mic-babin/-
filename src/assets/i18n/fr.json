@@ -1,0 +1,17 @@
+{
+  "LANGUAGE": "Langue",
+  "ENGLISH": "Anglais",
+  "FRENCH": "Français",
+  "ADDRESS": "Adresse",
+  "NUMBER": "Numéro",
+  "STREET": "Rue",
+  "CITY": "Ville",
+  "UNIT": "Appt/Autre",
+  "POSTAL_CODE": "Code postal",
+  "REQUIRED_FIELD": "Ce champs est requis",
+  "INVALID_POSTAL_CODE": "Code postal non valide",
+  "NOT_YOUR_ADDRESS": "Ce n'est pas votre adresse?",
+  "DONT_FIND_ADDRESS": "Vous ne trouvez pas votre adresse?",
+  "START_TYPING_ADDRESS": "Commencez à écrire votre adresse...",
+  "INVALID_EMAIL": "Veuillez entrer une adresse courriel valide"
+}

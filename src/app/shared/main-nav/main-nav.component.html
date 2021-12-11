@@ -1,0 +1,34 @@
+<ul class="py-3" nz-menu nzMode="horizontal">
+  <li nz-menu-item routerLink="/form-builder">
+    <i nz-icon nzType="mail"></i>
+    Universal Form Creator
+  </li>
+  <li nz-menu-item routerLink="/form">
+    <i nz-icon nzType="flag"></i>
+    Forms
+  </li>
+  <li nz-submenu nzTitle="{{ 'LANGUAGE' | translate }}" nzIcon="flag">
+    <ul>
+      <li nz-menu-item (click)="language.set('fr')">
+        {{ "FRENCH" | translate }}
+      </li>
+      <li nz-menu-item (click)="language.set('en')">
+        {{ "ENGLISH" | translate }}
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<!-- <div class="container" [matMenuTriggerFor]="menu">
+
+ 
+</div>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/form-builder">
+    
+  </button>
+  <button mat-menu-item routerLink="/form">
+    <mat-icon>assignment_turned_in</mat-icon>
+    <span>Form output</span>
+  </button>
+</mat-menu> -->
