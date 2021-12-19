@@ -1,0 +1,96 @@
+<div [formGroup]="form">
+  <div [formArrayName]="question.label.en">
+    <div
+      *ngFor="let field of fieldArray?.controls; let i = index"
+      class="d-flex justify-content-between mb-2"
+    >
+      <div [ngSwitch]="question.type" class="w-100">
+        <!-- Text -->
+        <div *ngSwitchCase="'text'">
+          <app-text-box
+            [question]="question"
+            [formControlName]="i"
+          ></app-text-box>
+        </div>
+        <!-- Number -->
+        <div *ngSwitchCase="'number'">
+          <app-text-box
+            [question]="question"
+            [formControlName]="i"
+          ></app-text-box>
+        </div>
+        <!-- Email -->
+        <div *ngSwitchCase="'email'">
+          <app-text-box
+            [question]="question"
+            [formControlName]="i"
+          ></app-text-box>
+        </div>
+        <!-- Address -->
+        <div *ngSwitchCase="'address'">
+          <app-address
+            [question]="question"
+            [formControlName]="i"
+          ></app-address>
+        </div>
+        <!-- Date -->
+        <div *ngSwitchCase="'date'">
+          <app-date-picker
+            [question]="question"
+            [formControlName]="i"
+          ></app-date-picker>
+        </div>
+        <!-- Boolean -->
+        <div *ngSwitchCase="'boolean'">
+          <app-boolean
+            [question]="question"
+            [formValidated]="formValidated"
+            [formControlName]="i"
+          ></app-boolean>
+        </div>
+        <!-- Select -->
+        <div *ngSwitchCase="'select'">
+          <app-select [question]="question" [formControlName]="i"></app-select>
+        </div>
+      </div>
+
+      <button
+        [disabled]="fieldArray.length == 1"
+        (click)="deleteField(i)"
+        class="px-2 ms-2 btn-delete"
+      >
+        <i
+          nz-icon
+          nzType="delete"
+          nzTheme="outline"
+          style="font-size: 21px; color: '$pink'"
+        ></i>
+      </button>
+    </div>
+
+    <span *ngIf="validateForm() && lastFieldEmpty()" class="error-msg">{{
+      "MULTIPLE_INPUT_VALIDATION" | translate
+    }}</span>
+  </div>
+
+  <button
+    [disabled]="fieldArrayIncomplete || fieldArray.length >= question.multiMax"
+    nz-button
+    nzType="text"
+    (click)="addField()"
+    class="add-field my-3"
+  >
+    {{ "ADD_FIELD" | translate
+    }}<i
+      nz-icon
+      nzType="plus"
+      nzTheme="outline"
+      style="font-size: 16px; transform: translateY(-2.5px)"
+    ></i>
+  </button>
+</div>
+<!-- <div class="form-val">
+  {{ form.value | json }}
+</div>
+
+<div class="form-val">Form: {{ form.valid | json }}</div> -->

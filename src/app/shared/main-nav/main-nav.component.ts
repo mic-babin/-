@@ -9,7 +9,5 @@ import { LanguageService } from '../services/language.service';
 export class MainNavComponent implements OnInit {
   constructor(public language: LanguageService) {}
 
-  ngOnInit(): void {
-    console.log(this.language.get());
-  }
+  ngOnInit(): void {}
 }

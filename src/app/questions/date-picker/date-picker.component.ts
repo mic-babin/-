@@ -15,6 +15,7 @@ import { Question } from 'src/app/models/question';
 import { getISOWeek } from 'date-fns';
 
 import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-date-picker',
@@ -46,7 +47,8 @@ export class DatePickerComponent
   constructor(
     private fb: FormBuilder,
     private validation: ValidationService,
-    private i18n: NzI18nService
+    private i18n: NzI18nService,
+    public language: LanguageService
   ) {}
   ngOnInit() {
     this.i18n.setLocale(en_US);

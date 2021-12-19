@@ -1,6 +1,5 @@
 <form [formGroup]="form">
   <div class="mb-2">
-    <label for="select">{{ question.label }}</label>
     <ngx-bootstrap-multiselect
       class="txt-main p-0 no-border"
       [options]="this.language.get() == 'fr' ? fr : en"

@@ -1,90 +1,119 @@
-<form class="container my-5" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="row">
-    <nz-steps [nzCurrent]="current">
-      <nz-step nzTitle="Finished"></nz-step>
-      <nz-step nzTitle="In Progress"></nz-step>
-      <nz-step nzTitle="Waiting"></nz-step>
-    </nz-steps>
+<form
+  class="container my-5"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  #formWrapper
+>
+  <nz-steps [nzCurrent]="current">
+    <nz-step
+      *ngFor="let section of formTemplate"
+      [nzTitle]="language.get() === 'en' ? section.title.en : section.title.fr"
+    ></nz-step>
+  </nz-steps>
 
-    <div class="steps-content">{{ index }}</div>
-    <div class="steps-action">
-      <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
-        <span>Previous</span>
-      </button>
-      <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
-        <span>Next</span>
-      </button>
-      <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
-        <span>Done</span>
-      </button>
-    </div>
-
-    <div
-      class="mb-3 d-inline"
-      *ngFor="let question of formTemplate"
-      [ngClass]="getStyle(question.col)"
-    >
-      <div class="d-inline" [ngSwitch]="question.type">
-        <!-- Text -->
-        <div *ngSwitchCase="'text'">
-          <app-text-box
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-text-box>
+  <div *ngFor="let section of formTemplate; let i = index" class="m-5">
+    <ng-container *ngIf="current === i" formGroupName="{{ section.title.en }}">
+      <h2 class="txt-main mb-3">
+        {{ language.get() === "en" ? section.title.en : section.title.fr }}
+      </h2>
+      <div class="row">
+        <div
+          class="mb-3 d-inline"
+          [ngClass]="'col-md-' + question.col + ' ' + 'order-' + question.order"
+          *ngFor="let question of section.questions"
+        >
+          <div *ngIf="!question.isHidden">
+            <label class="d-block" [for]="question.label.en">
+              {{
+                language.get() == "fr" ? question.label.fr : question.label.en
+              }}
+              <span *ngIf="question.required === false">
+                {{ "OPTIONAL" | translate }}
+              </span>
+              <app-tool-tip
+                [question]="question"
+                *ngIf="question.tooltip"
+              ></app-tool-tip>
+            </label>
+            <ng-container *ngIf="question.multi === true">
+              <app-multiple-input
+                [question]="question"
+                formControlName="{{ question.label.en }}"
+              ></app-multiple-input>
+            </ng-container>
+            <!-- Single field -->
+            <ng-container *ngIf="!question.multi">
+              <div class="d-inline" [ngSwitch]="question.type">
+                <!-- Text, number, email, password -->
+                <div *ngSwitchDefault>
+                  <app-text-box
+                    [question]="question"
+                    formControlName="{{ question.label.en }}"
+                  ></app-text-box>
+                </div>
+                <!-- Address -->
+                <div *ngSwitchCase="'address'">
+                  <app-address
+                    [question]="question"
+                    formControlName="{{ question.label.en }}"
+                  ></app-address>
+                </div>
+                <!-- Date -->
+                <div *ngSwitchCase="'date'">
+                  <app-date-picker
+                    [question]="question"
+                    formControlName="{{ question.label.en }}"
+                  ></app-date-picker>
+                </div>
+                <!-- Boolean -->
+                <div *ngSwitchCase="'boolean'">
+                  <app-boolean
+                    [question]="question"
+                    [formValidated]="formValidated"
+                    formControlName="{{ question.label.en }}"
+                  ></app-boolean>
+                </div>
+                <!-- Select -->
+                <div *ngSwitchCase="'select'">
+                  <app-select
+                    [question]="question"
+                    formControlName="{{ question.label.en }}"
+                  ></app-select>
+                </div>
+                <!-- File upload -->
+                <!-- <div *ngSwitchCase="'file'">
+                <app-file-upload></app-file-upload>
+                </div> -->
+              </div>
+            </ng-container>
+          </div>
+          <app-hint [question]="question" *ngIf="question.hint"></app-hint>
         </div>
-        <!-- Number -->
-        <div *ngSwitchCase="'number'">
-          <app-text-box
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-text-box>
-        </div>
-        <!-- Email -->
-        <div *ngSwitchCase="'email'">
-          <app-text-box
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-text-box>
-        </div>
-        <!-- Address -->
-        <div *ngSwitchCase="'address'">
-          <app-address
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-address>
-        </div>
-        <!-- Date -->
-        <div *ngSwitchCase="'date'">
-          <app-date-picker
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-date-picker>
-        </div>
-        <!-- Boolean -->
-        <div *ngSwitchCase="'boolean'">
-          <app-boolean
-            [question]="question"
-            [formValidated]="formValidated"
-            formControlName="{{ question.label }}"
-          ></app-boolean>
-        </div>
-        <!-- Select -->
-        <div *ngSwitchCase="'select'">
-          <app-select
-            [question]="question"
-            formControlName="{{ question.label }}"
-          ></app-select>
-        </div>
-        <!-- File upload -->
-        <!-- <div *ngSwitchCase="'file'">
-          <app-file-upload></app-file-upload>
-        </div> -->
       </div>
-    </div>
+      <div class="steps-action">
+        <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+          <span>Previous</span>
+        </button>
+        <button
+          nz-button
+          nzType="default"
+          (click)="next()"
+          *ngIf="current < formTemplate.length - 1"
+          [disabled]="!form.get(section.title.en).valid"
+        >
+          <span>Next</span>
+        </button>
+        <button
+          nz-button
+          type="submit"
+          *ngIf="current === formTemplate.length - 1"
+          [disabled]="!form.valid"
+        >
+          <span>Send</span>
+        </button>
+      </div>
+    </ng-container>
   </div>
-  <button class="btn btn-primary" style="max-width: 200px" type="submit">
-    Send
-  </button>
 </form>
 
 {{ form.value | json }} | {{ form.valid | json }}

@@ -1,12 +1,6 @@
 <form [formGroup]="form">
   <div class="row">
     <div class="col-12 mb-2" *ngIf="showGoogleAddress">
-      <label>
-        {{ "ADDRESS" | translate }}
-        <span *ngIf="question.required === false">
-          {{ "OPTIONAL" | translate }}
-        </span>
-      </label>
       <nz-input-group [nzPrefix]="suffixIconSearch">
         <input
           nz-input
@@ -30,80 +24,80 @@
     </div>
     <ng-container *ngIf="!showGoogleAddress">
       <div class="col-md-3 mb-2">
-        <label for="number">{{ "NUMBER" | translate }}</label>
+        <label for="Number">{{ "NUMBER" | translate }}</label>
         <input
           type="number"
           class="form-control"
-          formControlName="number"
+          formControlName="Number"
           (blur)="onTouched()"
         />
-        <span *ngIf="validateField('number', 'required')" class="error-msg">{{
+        <span *ngIf="validateField('Number', 'required')" class="error-msg">{{
           "REQUIRED_FIELD" | translate
         }}</span>
       </div>
       <div class="col-md-9 mb-2">
-        <label for="street">{{ "STREET" | translate }}</label>
+        <label for="Street">{{ "STREET" | translate }}</label>
         <input
           type="text"
           class="form-control"
-          formControlName="street"
+          formControlName="Street"
           (blur)="onTouched()"
         />
-        <span *ngIf="validateField('street', 'required')" class="error-msg">{{
+        <span *ngIf="validateField('Street', 'required')" class="error-msg">{{
           "REQUIRED_FIELD" | translate
         }}</span>
       </div>
       <div class="col-md-10 mb-2">
-        <label for="city">{{ "CITY" | translate }}</label>
+        <label for="City">{{ "CITY" | translate }}</label>
         <input
           type="text"
           class="form-control"
-          formControlName="city"
+          formControlName="City"
           (blur)="onTouched()"
         />
-        <span *ngIf="validateField('city', 'required')" class="error-msg">{{
+        <span *ngIf="validateField('City', 'required')" class="error-msg">{{
           "REQUIRED_FIELD" | translate
         }}</span>
       </div>
       <div class="col-md-2 mb-2">
-        <label for="unit">{{ "UNIT" | translate }}</label>
+        <label for="Unit">{{ "UNIT" | translate }}</label>
         <input
           type="text"
           class="form-control"
-          formControlName="unit"
+          formControlName="Unit"
           (blur)="onTouched()"
         />
       </div>
       <div class="col-md-9 mb-2">
-        <label for="province">Province</label>
+        <label for="Province">Province</label>
         <ngx-bootstrap-multiselect
           class="txt-main p-0 no-border"
           [options]="this.language.get() == 'fr' ? provFr : provEn"
-          formControlName="province"
+          formControlName="Province"
           [texts]="this.language.get() == 'fr' ? textFr : textEn"
           [settings]="settings"
           (blur)="onTouched()"
         ></ngx-bootstrap-multiselect>
-        <span *ngIf="validateField('province', 'required')" class="error-msg">{{
+        <span *ngIf="validateField('Province', 'required')" class="error-msg">{{
           "REQUIRED_FIELD" | translate
         }}</span>
       </div>
       <div class="col-md-3 mb-2">
-        <label for="postalCode">{{ "POSTAL_CODE" | translate }}</label>
+        <label for="PostalCode">{{ "POSTAL_CODE" | translate }}</label>
         <input
           class="form-control"
-          formControlName="postalCode"
+          formControlName="PostalCode"
           (blur)="onTouched()"
         />
         <span
-          *ngIf="validateField('postalCode', 'required')"
+          *ngIf="validateField('PostalCode', 'required')"
           class="error-msg pe-3"
           >{{ "REQUIRED_FIELD" | translate }}</span
         >
         <span
           *ngIf="
-            this.form.controls.postalCode.hasError('pattern') &&
-            form.controls.postalCode.touched
+            this.form.controls.PostalCode.hasError('pattern') &&
+            form.controls.PostalCode.touched
           "
           class="error-msg"
           >{{ "INVALID_POSTAL_CODE" | translate }}</span

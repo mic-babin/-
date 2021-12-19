@@ -54,14 +54,14 @@ export class AddressComponent
   public handleAddressChange(address: any) {
     this.googleAddress = address.address_components;
     this.form.patchValue({
-      number: this.getAddress('street_number') || '',
-      street: this.getAddress('route') || '',
-      city:
+      Number: this.getAddress('street_number') || '',
+      Street: this.getAddress('route') || '',
+      City:
         this.getAddress('sublocality_level_1') ||
         this.getAddress('locality') ||
         '',
-      province: this.getAddress('administrative_area_level_1') || '',
-      postalCode: this.getAddress('postal_code') || '',
+      Province: this.getAddress('administrative_area_level_1') || '',
+      PostalCode: this.getAddress('postal_code') || '',
     });
     this.showGoogleAddress = false;
   }
@@ -90,7 +90,7 @@ export class AddressComponent
     this.form = this.fb.group({});
     this.formTemplate.forEach((question) => {
       this.form.addControl(
-        question.label,
+        question.label.en,
         this.fb.control(null, this.validation.get(question))
       );
     });

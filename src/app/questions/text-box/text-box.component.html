@@ -1,16 +1,72 @@
 <form [formGroup]="form" class="mb-2">
-  <label for="text">{{ question.label }}</label>
   <input
+    *ngIf="question.type !== 'password' && !question.unit"
     class="form-control"
-    type="{{ question.type }}"
-    formControlName="text"
+    [type]="question.type"
+    [min]="question.minLength"
+    [max]="question.maxLength"
+    formControlName="{{ question.type }}"
     (blur)="onTouched()"
   />
-  <span *ngIf="validateField('text', 'required')" class="error-msg">{{
+  <nz-input-group
+    *ngIf="question.type === 'password' || question.unit"
+    [nzSuffix]="
+      question.type === 'password'
+        ? suffixPassword
+        : question.unit.en === '$' && this.language.get() == 'en'
+        ? ''
+        : suffixUnit
+    "
+    [nzPrefix]="
+      question.type !== 'password' &&
+      question.unit.en === '$' &&
+      this.language.get() == 'en'
+        ? suffixUnit
+        : ''
+    "
+  >
+    <input
+      nz-input
+      [type]="
+        question.type === 'password' && hidePassword === false
+          ? 'text'
+          : question.type
+      "
+      [min]="question.minLength"
+      [max]="question.maxLength"
+      formControlName="{{ question.type }}"
+      (blur)="onTouched()"
+    />
+  </nz-input-group>
+  <ng-template #suffixUnit>
+    {{ language.get() == "fr" ? question.unit.fr : question.unit.en }}
+  </ng-template>
+  <ng-template #suffixPassword>
+    <i
+      nz-icon
+      nzType="eye"
+      nzTheme="outline"
+      style="color: #004161"
+      (click)="togglePasswordView()"
+      *ngIf="hidePassword"
+    ></i>
+    <i
+      nz-icon
+      nzType="eye-invisible"
+      nzTheme="outline"
+      style="color: #004161"
+      (click)="togglePasswordView()"
+      *ngIf="!hidePassword"
+    ></i>
+  </ng-template>
+
+  <span *ngIf="validateField(question.type, 'required')" class="error-msg">{{
     "REQUIRED_FIELD" | translate
   }}</span>
-  <span *ngIf="validateField('text', 'pattern')" class="error-msg">{{
-    "INVALID_EMAIL" | translate
+  <span *ngIf="validateField(question.type, 'pattern')" class="error-msg">{{
+    language.get() === "fr"
+      ? question.invalidPattern.fr
+      : question.invalidPattern.en
   }}</span>
   <!-- <div class="form-val">
     {{ form.value | json }}

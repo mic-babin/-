@@ -10,7 +10,6 @@ export class ValidationService {
   constructor() {}
 
   get(question: Question) {
-    console.log(question);
     let validators = [
       this.checkRequired(question.required),
       this.checkPattern(question.pattern),
@@ -43,7 +42,9 @@ export class ValidationService {
 
   validateForm(form: FormGroup, second?) {
     return (
-      (!form.valid && this.validated) || (this.validated && second === null)
+      (!form.valid && this.validated) ||
+      (this.validated && second === null) ||
+      (!form.valid && form.touched)
     );
   }
 }

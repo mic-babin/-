@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormModule } from './form/form.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionsModule } from './questions/questions.module';
@@ -17,6 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -32,7 +32,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     FormModule,
     SharedModule,
     QuestionsModule,
-    NgbModule,
+
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule,
@@ -46,6 +46,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
       },
     }),
     NgxBootstrapMultiselectModule,
+    NzIconModule,
   ],
   providers: [],
 

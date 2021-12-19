@@ -9,32 +9,32 @@ export class AddressService {
   getTemplate(req) {
     return [
       {
-        label: 'number',
+        label: { en: 'Number', fr: 'Numéro' },
         col: 'col-md-3',
         required: req,
       },
       {
-        label: 'street',
+        label: { en: 'Street', fr: 'Rue' },
         col: 'col-md-9',
         required: req,
       },
       {
-        label: 'city',
+        label: { en: 'City', fr: 'Ville' },
         col: 'col-md-10',
         required: req,
       },
       {
-        label: 'unit',
+        label: { en: 'Unit', fr: 'Apt.' },
         col: 'col-md-2',
         required: false,
       },
       {
-        label: 'province',
+        label: { en: 'Province', fr: 'Province' },
         col: 'col-md-9',
         required: req,
       },
       {
-        label: 'postalCode',
+        label: { en: 'PostalCode', fr: 'Code postal' },
         col: 'col-md-3',
         required: req,
         pattern: /[A-Za-z][0-9][A-Za-z][ -]?[0-9][A-Za-z][0-9]$/,

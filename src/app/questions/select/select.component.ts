@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   ControlValueAccessor,
   FormBuilder,
   FormGroup,
@@ -14,7 +13,7 @@ import {
   IMultiSelectTexts,
   IMultiSelectSettings,
 } from 'ngx-bootstrap-multiselect';
-import { noop, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ValidationService } from 'src/app/form/services/validation.service';
 import { Question } from 'src/app/models/question';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -58,12 +57,12 @@ export class SelectComponent
     private dropdown: MultiSelectService
   ) {}
   ngOnInit() {
-    this.en = this.question.options.en;
-    this.fr = this.question.options.fr;
-    if (this.question.selectLimit > 1) {
+    this.en = this.question.options?.en;
+    this.fr = this.question.options?.fr;
+    if (this.question?.selectLimit > 1) {
       this.dropdown.settings.autoUnselect = false;
       this.dropdown.settings.closeOnSelect = false;
-      this.dropdown.settings.selectionLimit = this.question.selectLimit;
+      this.dropdown.settings.selectionLimit = this.question?.selectLimit;
     }
     this.form = this.fb.group({
       select: [null, this.validation.get(this.question)],
@@ -71,7 +70,7 @@ export class SelectComponent
   }
 
   registerOnChange(onChange: any) {
-    this.onChangeSub = this.form.valueChanges.subscribe(onChange);
+    this.onChangeSub = this.form?.valueChanges.subscribe(onChange);
   }
   ngOnDestroy() {
     this.onChangeSub.unsubscribe();
@@ -92,7 +91,7 @@ export class SelectComponent
     }
   }
   validate(): ValidationErrors | null {
-    return this.form.valid ? null : { text: { valid: false } };
+    return this.form?.valid ? null : { text: { valid: false } };
   }
 
   validateField(field: string, validation) {

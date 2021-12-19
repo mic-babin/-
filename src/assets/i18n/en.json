@@ -13,5 +13,7 @@
   "NOT_YOUR_ADDRESS": "Not your address?",
   "DONT_FIND_ADDRESS": "Can't find your address?",
   "START_TYPING_ADDRESS": "Start typing your address...",
-  "INVALID_EMAIL": "Please enter a valid email address"
+  "MULTIPLE_INPUT_VALIDATION": "You cannot leave an empty field. You should fill it or delete it.",
+  "ADD_FIELD": "Add a field",
+  "SEND": "Send"
 }

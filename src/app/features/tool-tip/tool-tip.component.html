@@ -1,0 +1,18 @@
+<a
+  nz-tooltip
+  [nzTooltipTitle]="toolTip"
+  [nzTooltipTitleContext]="{
+    $implicit:
+      language.get() === 'fr' ? question.tooltip.fr : question.tooltip.en
+  }"
+  nzTooltipColor="#004161f1"
+  ><i
+    nz-icon
+    nzType="question-circle"
+    nzTheme="outline"
+    style="font-size: 16px; color: #004161; transform: translateY(-2.5px)"
+  ></i
+></a>
+<ng-template #toolTip let-message>
+  <div [innerHtml]="message" class="px-3 py-2"></div>
+</ng-template>

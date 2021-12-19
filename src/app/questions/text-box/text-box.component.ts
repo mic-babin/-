@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   ControlValueAccessor,
   FormBuilder,
   FormGroup,
@@ -8,11 +7,11 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
-  Validators,
 } from '@angular/forms';
-import { noop, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ValidationService } from 'src/app/form/services/validation.service';
 import { Question } from 'src/app/models/question';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-text-box',
@@ -38,10 +37,16 @@ export class TextBoxComponent
   onTouched = () => {};
   onChangeSub: Subscription;
   form: FormGroup;
-  constructor(private fb: FormBuilder, private validation: ValidationService) {}
+  hidePassword: boolean = true;
+
+  constructor(
+    private fb: FormBuilder,
+    private validation: ValidationService,
+    public language: LanguageService
+  ) {}
   ngOnInit() {
     this.form = this.fb.group({
-      text: [null, this.validation.get(this.question)],
+      [this.question.type]: [null, this.validation.get(this.question)],
     });
   }
 
@@ -72,5 +77,10 @@ export class TextBoxComponent
 
   validateField(field: string, validation) {
     return this.validation.validateField(this.form, field, validation);
+  }
+
+  togglePasswordView() {
+    this.hidePassword = !this.hidePassword;
+    console.log(this.hidePassword);
   }
 }

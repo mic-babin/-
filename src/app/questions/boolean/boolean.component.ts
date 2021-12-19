@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   ControlValueAccessor,
   FormBuilder,
   FormGroup,
@@ -8,11 +7,11 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
-  Validators,
 } from '@angular/forms';
-import { noop, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ValidationService } from 'src/app/form/services/validation.service';
 import { Question } from 'src/app/models/question';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-boolean',
@@ -35,11 +34,15 @@ export class BooleanComponent
   implements ControlValueAccessor, Validator, OnDestroy, OnInit
 {
   @Input() question: Question;
-  @Input() formValidated: Boolean;
+
   onTouched = () => {};
   onChangeSub: Subscription;
   form: FormGroup;
-  constructor(private fb: FormBuilder, private validation: ValidationService) {}
+  constructor(
+    private fb: FormBuilder,
+    private validation: ValidationService,
+    public language: LanguageService
+  ) {}
   ngOnInit() {
     this.form = this.fb.group({
       boolean: [null, this.validation.get(this.question)],

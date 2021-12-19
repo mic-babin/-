@@ -11,15 +11,15 @@ select:focus {
 .form-control,
 .ant-input-affix-wrapper {
   padding: 0.5rem 0.75rem !important;
-  border: 1px #ddd solid !important;
-  border-radius: 4px;
+  border: 1px $greyBorder solid !important;
+  border-radius: $inputRadius;
 }
 
 .form-control:focus,
 .ant-input-affix-wrapper-focused,
 .ant-input-affix-wrapper:focus {
   border: 1px solid $mainColor !important;
-  box-shadow: 0 4px 8px hsl(0deg 0% 60% / 30%) !important;
+  box-shadow: $shadowInput !important;
   color: $mainColor !important;
 }
 
@@ -48,20 +48,20 @@ select:focus {
 
 .ant-radio-button-wrapper-checked,
 .ant-radio-button-wrapper:hover {
-  color: #ffffff !important;
+  color: $white !important;
 
   background-color: $mainColor !important;
   border: 1px solid $mainColor !important;
 }
 
 .ant-radio-button-wrapper:first-child {
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
+  border-top-left-radius: $inputRadius !important;
+  border-bottom-left-radius: $inputRadius !important;
 }
 
 .ant-radio-button-wrapper:last-child {
-  border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;
+  border-top-right-radius: $inputRadius !important;
+  border-bottom-right-radius: $inputRadius !important;
 }
 
 .ant-radio-button-wrapper:not(:first-child)::before {
@@ -74,7 +74,7 @@ select:focus {
   padding: 0.5rem 0.75rem !important;
   width: 100%;
   color: $mainColor !important;
-  border-radius: 4px;
+  border-radius: $inputRadius;
 }
 
 .ant-picker-focused,
@@ -83,7 +83,7 @@ select:focus {
 }
 
 .ant-picker-focused {
-  box-shadow: 0 4px 8px hsl(0deg 0% 60% / 30%) !important;
+  box-shadow: $shadowInput !important;
 }
 
 .ant-picker.ng-dirty.ng-invalid {
@@ -92,4 +92,34 @@ select:focus {
 
 .dropdown-menu {
   width: 100%;
+}
+
+// Ant stepper
+.ant-steps-item-icon.ng-star-inserted {
+  top: -5px !important;
+  position: relative;
+  color: #1890ff;
+  line-height: 1;
+}
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: $mainColor;
+}
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #fff;
+  border-color: $mainColor;
+}
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #fff;
+  border-color: $mainColor;
+}
+
+.ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after,
+.ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-tail::after {
+  background-color: $mainColor;
 }

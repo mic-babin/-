@@ -16,6 +16,9 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { MultipleInputComponent } from './multiple-input/multiple-input.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     DatePickerComponent,
     BooleanComponent,
     SelectComponent,
+    MultipleInputComponent,
   ],
   imports: [
     CommonModule,
@@ -33,12 +37,14 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzRadioModule,
     NzIconModule,
     NzInputModule,
+    NzButtonModule,
     NzDatePickerModule,
     BrowserModule,
     FormsModule,
     TranslateModule,
     NgxBootstrapMultiselectModule,
     GooglePlaceModule,
+    NzToolTipModule,
   ],
   exports: [
     TextBoxComponent,
@@ -47,6 +53,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     DatePickerComponent,
     BooleanComponent,
     SelectComponent,
+    MultipleInputComponent,
   ],
 })
 export class QuestionsModule {}

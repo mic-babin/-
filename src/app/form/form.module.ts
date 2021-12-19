@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from './form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionsModule } from '../questions/questions.module';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { FeaturesModule } from '../features/features.module';
 
 @NgModule({
   declarations: [FormComponent],
@@ -13,8 +13,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule,
     QuestionsModule,
+    FeaturesModule,
     NzStepsModule,
     NzButtonModule,
   ],
