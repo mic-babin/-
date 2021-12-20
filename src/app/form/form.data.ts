@@ -1,9 +1,13 @@
-import { Question } from '../models/question';
 import { Section } from '../models/section';
 
 export const formTemplate: Section[] = [
   {
     title: { en: 'Location', fr: 'Localisation' },
+    order: '1',
+    advice: {
+      en: 'Please enter your home address.',
+      fr: "S'il-vous plait entrer votre adresse principale.",
+    },
     questions: [
       {
         type: 'address',
@@ -21,6 +25,7 @@ export const formTemplate: Section[] = [
   },
   {
     title: { en: 'Info', fr: 'Info' },
+    order: '3',
     questions: [
       {
         type: 'email',
@@ -106,12 +111,13 @@ export const formTemplate: Section[] = [
   },
   {
     title: { en: 'Settings', fr: 'Paramètres' },
+    order: '2',
     questions: [
       {
         type: 'select',
         label: { en: 'Language', fr: 'Langue' },
         col: '4',
-        order: '1',
+        order: '2',
         required: true,
         selectLimit: 2,
         options: {
@@ -130,7 +136,7 @@ export const formTemplate: Section[] = [
         type: 'text',
         label: { en: 'Pets', fr: 'Animaux' },
         col: '12',
-        order: '1',
+        order: '3',
         required: true,
         multi: true,
       },

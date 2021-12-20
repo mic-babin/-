@@ -11,6 +11,7 @@ import { ValidationService } from './services/validation.service';
 import * as data from './form.data';
 import { Section } from '../models/section';
 import { LanguageService } from '../shared/services/language.service';
+import { FormService } from './services/form.service';
 
 @Component({
   selector: 'app-form',
@@ -24,27 +25,23 @@ export class FormComponent implements OnInit, AfterViewChecked {
   formTemplate: Section[] = data.formTemplate;
   current = 0;
 
-  pre(): void {
-    this.current -= 1;
-  }
-
-  next(): void {
-    this.current += 1;
-  }
-
   constructor(
     private fb: FormBuilder,
     private validation: ValidationService,
     private renderer: Renderer2,
-    public language: LanguageService
+    public language: LanguageService,
+    private formAction: FormService
   ) {}
+
   ngOnInit() {
     this.form = this.fb.group({});
-
+    this.formTemplate = this.formAction.filterAndSort(this.formTemplate);
     this.formTemplate.forEach((section) => {
       this.form.addControl(section.title.en, this.fb.group([]));
-      let q = section.questions.filter((question) => !question.isHidden);
-      q.forEach((question) => {
+      // let q = section.questions.filter((question) => !question.isHidden);
+      // q.sort((a, b) => parseFloat(b.order) - parseFloat(a.order));
+
+      section.questions.forEach((question) => {
         (this.form.controls[section.title.en] as FormGroup).addControl(
           question.label.en,
           this.fb.control(
@@ -55,17 +52,14 @@ export class FormComponent implements OnInit, AfterViewChecked {
       });
     });
 
-    console.log(this.form);
     this.validation.setValidated(false);
   }
 
   ngAfterViewChecked() {
-    this.formWrapper.nativeElement.querySelectorAll('svg').forEach((svg) => {
-      // this.renderer.setAttribute(svg, 'fill', '#004161');
-    });
     this.formWrapper.nativeElement
-      .querySelectorAll('.anticon-check')
+      .querySelectorAll('.anticon-check svg')
       .forEach((svg) => {
+        this.renderer.setAttribute(svg, 'fill', '#004161');
         this.renderer.setStyle(svg, 'transform', 'translateY(-5px)');
       });
   }
@@ -77,7 +71,12 @@ export class FormComponent implements OnInit, AfterViewChecked {
       this.validation.setValidated(true);
     }
   }
-  getStyle(value: string) {
-    return value;
+
+  pre(): void {
+    this.current -= 1;
+  }
+
+  next(): void {
+    this.current += 1;
   }
 }

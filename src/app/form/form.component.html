@@ -16,10 +16,13 @@
       <h2 class="txt-main mb-3">
         {{ language.get() === "en" ? section.title.en : section.title.fr }}
       </h2>
+      <p *ngIf="section.advice">
+        {{ language.get() === "en" ? section.advice.en : section.advice.fr }}
+      </p>
       <div class="row">
         <div
           class="mb-3 d-inline"
-          [ngClass]="'col-md-' + question.col + ' ' + 'order-' + question.order"
+          [ngClass]="'col-md-' + question.col"
           *ngFor="let question of section.questions"
         >
           <div *ngIf="!question.isHidden">
