@@ -1,0 +1,34 @@
+<form [formGroup]="form" class="row">
+  <nz-slider
+    [formControlName]="question.label.en"
+    [nzMin]="question.min"
+    [nzMax]="question.max"
+    [nzStep]="question.step"
+    class="col-md-10"
+  ></nz-slider>
+  <div class="col-md-2">
+    <div class="float-end">
+      <span
+        *ngIf="this.language.get() === 'en' && this.question.unit.en === '$'"
+      >
+        {{ this.question.unit.en }}</span
+      >
+      {{ this.form.get(question.label.en).value || 0 | mask: "separator":" " }}
+      <span
+        *ngIf="this.language.get() === 'fr' || this.question.unit.en !== '$'"
+        >{{ this.question.unit.en }}</span
+      >
+    </div>
+  </div>
+  <app-validation-messages
+    [question]="question"
+    [form]="form"
+  ></app-validation-messages>
+  <!-- <div class="form-val">
+      {{ form.value | json }}
+    </div>
+  
+    <div class="form-val">
+      {{ form.valid | json }}
+    </div> -->
+</form>

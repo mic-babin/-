@@ -1,0 +1,98 @@
+<!-- Required -->
+<span *ngIf="validateField(question.label.en, 'required')" class="error-msg">{{
+  "REQUIRED_FIELD" | translate
+}}</span>
+<!-- Pattern -->
+<span *ngIf="validateField(question.label.en, 'pattern')" class="error-msg">{{
+  language.get() === "fr"
+    ? question.invalidPattern.fr
+    : question.invalidPattern.en
+}}</span>
+<!-- Min number -->
+<span
+  *ngIf="!question.max && validateField(question.label.en, 'min')"
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La valeur minimun permise est " + question.min
+      : "The minimum permitted value is " + question.min
+  }}</span
+>
+<!-- Max number -->
+<span
+  *ngIf="!question.min && validateField(question.label.en, 'max')"
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La valeur maximun permise est " + question.max
+      : "The maximum permitted value is " + question.max
+  }}</span
+>
+<!-- Min and Max number -->
+<span
+  *ngIf="
+    question.min &&
+    question.max &&
+    (validateField(question.label.en, 'min') ||
+      validateField(question.label.en, 'max'))
+  "
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La valeur doit être comprise entre " +
+        question.min +
+        " et " +
+        question.max
+      : "The value must be between " + question.min + " and " + question.max
+  }}</span
+>
+<!-- MinLength -->
+<span
+  *ngIf="!question.maxLength && validateField(question.label.en, 'minlength')"
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La réponse doit contenir un minimum de " +
+        question.minLength +
+        " caractère(s)"
+      : "The answer must have a minimum of " +
+        question.minLength +
+        " character(s)"
+  }}</span
+>
+<!-- MaxLength -->
+<span
+  *ngIf="!question.minLength && validateField(question.label.en, 'maxlength')"
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La réponse doit contenir un maximum de " +
+        question.maxLength +
+        " caractère(s)"
+      : "The answer must have a maximum of " +
+        question.maxLength +
+        " character(s)"
+  }}</span
+>
+<!-- MinLength and MaxLength -->
+<span
+  *ngIf="
+    question.minLength &&
+    question.maxLength &&
+    validateField(question.label.en, 'minlength') &&
+    validateField(question.label.en, 'maxlength')
+  "
+  class="error-msg"
+  >{{
+    language.get() === "fr"
+      ? "La réponse doit contenir entre " +
+        question.minLength +
+        " et " +
+        question.maxLength +
+        " caractère(s)"
+      : "The answer must have between " +
+        question.minLength +
+        " and " +
+        " character(s)"
+  }}</span
+>

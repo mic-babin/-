@@ -9,29 +9,28 @@ import {
   Validator,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FormService } from 'src/app/form/services/form.service';
 import { ValidationService } from 'src/app/form/services/validation.service';
 import { Question } from 'src/app/models/question';
 import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
-  selector: 'app-boolean',
-  templateUrl: './boolean.component.html',
-  styleUrls: ['./boolean.component.scss'],
+  selector: 'app-slider',
+  templateUrl: './slider.component.html',
+  styleUrls: ['./slider.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: BooleanComponent,
+      useExisting: SliderComponent,
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: BooleanComponent,
+      useExisting: SliderComponent,
     },
   ],
 })
-export class BooleanComponent
+export class SliderComponent
   implements ControlValueAccessor, Validator, OnDestroy, OnInit
 {
   @Input() question: Question;
@@ -42,17 +41,11 @@ export class BooleanComponent
   constructor(
     private fb: FormBuilder,
     private validation: ValidationService,
-    public language: LanguageService,
-    private formAction: FormService
+    public language: LanguageService
   ) {}
   ngOnInit() {
     this.form = this.fb.group({
       [this.question.label.en]: [null, this.validation.get(this.question)],
-    });
-
-    this.form.get(this.question.label.en).valueChanges.subscribe((answer) => {
-      console.log(answer);
-      this.formAction.show(this.question, answer);
     });
   }
 
@@ -78,8 +71,10 @@ export class BooleanComponent
     }
   }
   validate(): ValidationErrors | null {
-    return this.form.valid
-      ? null
-      : { [this.question.label.en]: { valid: false } };
+    return this.form.valid ? null : { text: { valid: false } };
+  }
+
+  formatter(value: number): string {
+    return value + ' $';
   }
 }

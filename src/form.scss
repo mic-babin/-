@@ -123,3 +123,27 @@ select:focus {
   > .ant-steps-item-tail::after {
   background-color: $mainColor;
 }
+
+// ant slider
+.ant-slider-track {
+  background-color: $mainColor;
+}
+
+.ant-slider:hover .ant-slider-track {
+  background-color: $blue;
+}
+
+.ant-slider-handle {
+  border-color: $mainColor;
+}
+.ant-slider:hover .ant-slider-handle {
+  border-color: $blue;
+}
+
+.ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+  border-color: $mainColor;
+}
+
+.ant-slider-handle:focus {
+  border-color: $mainColor;
+}

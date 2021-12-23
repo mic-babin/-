@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Component,
   forwardRef,
@@ -18,7 +15,6 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ValidationService } from 'src/app/form/services/validation.service';
@@ -77,7 +73,7 @@ export class MultipleInputComponent
 
   addField(): void {
     this.fieldArray.push(
-      new FormControl('', this.validation.checkRequired(this.question.required))
+      new FormControl('', this.validation.checkRequired(this.question))
     );
   }
 
@@ -121,10 +117,7 @@ export class MultipleInputComponent
       //   select: [null, this.validation.get(this.question)],
       // }])
       [this.question?.label.en]: new FormArray([
-        new FormControl(
-          '',
-          this.validation.checkRequired(this.question.required)
-        ),
+        new FormControl('', this.validation.checkRequired(this.question)),
       ]),
     });
 

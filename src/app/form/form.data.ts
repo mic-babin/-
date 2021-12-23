@@ -3,12 +3,28 @@ import { Section } from '../models/section';
 export const formTemplate: Section[] = [
   {
     title: { en: 'Location', fr: 'Localisation' },
-    order: '1',
+    order: '3',
     advice: {
       en: 'Please enter your home address.',
       fr: "S'il-vous plait entrer votre adresse principale.",
     },
     questions: [
+      {
+        type: 'slider',
+        label: { en: 'Couverture', fr: 'Couverture' },
+        col: '12',
+        order: '2',
+        required: true,
+        isHidden: false,
+        min: 1000,
+        max: 10000,
+        step: 1000,
+        unit: { en: '$', fr: '$' },
+        // tooltip: {
+        //   en: '<p>Grocery List:</p><ul><li>Milk</li><li>Tea</li><li>Coffe</li></ul>',
+        //   fr: '<p>Grocery List:</p><ul><li>Milk</li><li>Tea</li><li>Coffe</li></ul>',
+        // },
+      },
       {
         type: 'address',
         label: { en: 'Address', fr: 'Adresse' },
@@ -25,7 +41,7 @@ export const formTemplate: Section[] = [
   },
   {
     title: { en: 'Info', fr: 'Info' },
-    order: '3',
+    order: '1',
     questions: [
       {
         type: 'email',
@@ -34,9 +50,9 @@ export const formTemplate: Section[] = [
         order: '7',
         required: true,
         pattern: /.+@.+\..+/,
+        isHidden: true,
         // multi: true,
         // multiMax: 2,
-        isHidden: false,
         invalidPattern: {
           en: 'Please enter a valid email address',
           fr: 'Veuillez entrer une adresse courriel valide',
@@ -52,6 +68,20 @@ export const formTemplate: Section[] = [
         col: '6',
         order: '6',
         required: true,
+        minLength: 4,
+        isHidden: true,
+        // maxLength: 10,
+        // multi: true,
+        // multiMax: 2,
+      },
+      {
+        type: 'text',
+        label: { en: 'Phone', fr: 'Téléphone' },
+        col: '6',
+        order: '6',
+        required: true,
+        mask: '(000) 000-0000',
+        isHidden: true,
         // multi: true,
         // multiMax: 2,
       },
@@ -69,6 +99,7 @@ export const formTemplate: Section[] = [
           en: 'Your password must contain 8 to 12 characters, one uppercase letter, one lowercase letter, one number and one special character',
           fr: 'Votre mot de passe doit contenir 8 à 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial',
         },
+        isHidden: true,
       },
       {
         type: 'number',
@@ -77,8 +108,13 @@ export const formTemplate: Section[] = [
         order: '5',
         required: true,
         unit: { en: 'year(s)', fr: 'année(s)' },
-        minLength: 1,
-        maxLength: 5,
+        min: 18,
+        max: 100,
+        isHidden: true,
+        // hint: {
+        //   en: 'You must be 18 years old.',
+        //   fr: 'Vous devez avoir 18 ans.',
+        // },
       },
       {
         type: 'date',
@@ -86,6 +122,7 @@ export const formTemplate: Section[] = [
         col: '6',
         order: '2',
         required: true,
+        isHidden: true,
         // multi: true,
         // multiMax: 2,
       },
@@ -95,6 +132,7 @@ export const formTemplate: Section[] = [
         col: '6',
         order: '3',
         required: true,
+        isHidden: true,
         // multi: true,
         // multiMax: 2,
       },
@@ -104,6 +142,18 @@ export const formTemplate: Section[] = [
         col: '6',
         order: '1',
         required: true,
+        isHidden: false,
+        show: {
+          answer: 1,
+          questions: [
+            'Veteran',
+            'Birthday',
+            'Age',
+            'Password',
+            'Phone',
+            'Name',
+          ],
+        },
         // multi: true,
         // multiMax: 2,
       },
@@ -111,14 +161,15 @@ export const formTemplate: Section[] = [
   },
   {
     title: { en: 'Settings', fr: 'Paramètres' },
-    order: '2',
+    order: '3',
     questions: [
       {
         type: 'select',
         label: { en: 'Language', fr: 'Langue' },
         col: '4',
         order: '2',
-        required: true,
+        required: false,
+        isHidden: true,
         selectLimit: 2,
         options: {
           en: [
@@ -130,7 +181,6 @@ export const formTemplate: Section[] = [
             { id: 'FR', name: 'Français' },
           ],
         },
-        multi: true,
       },
       {
         type: 'text',
@@ -139,6 +189,7 @@ export const formTemplate: Section[] = [
         order: '3',
         required: true,
         multi: true,
+        isHidden: false,
       },
     ],
   },

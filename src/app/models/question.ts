@@ -15,10 +15,18 @@ export class Question {
   selectLimit?: number;
   multi?: boolean;
   multiMax?: number;
-  isHidden?: boolean;
+  isHidden: boolean;
+  show?: {
+    answer: any;
+    questions: string[];
+  };
+  min?: number;
+  max?: number;
   minLength?: number;
   maxLength?: number;
+  step?: number;
   tooltip?: Label;
   hint?: Label;
   unit?: Label;
+  mask?: string;
 }

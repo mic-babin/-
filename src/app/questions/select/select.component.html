@@ -3,14 +3,15 @@
     <ngx-bootstrap-multiselect
       class="txt-main p-0 no-border"
       [options]="this.language.get() == 'fr' ? fr : en"
-      formControlName="select"
+      [formControlName]="this.question.label.en"
       [texts]="this.language.get() == 'fr' ? textFr : textEn"
       [settings]="settings"
       (blur)="onTouched()"
     ></ngx-bootstrap-multiselect>
-    <span *ngIf="validateField('select', 'required')" class="error-msg">{{
-      "REQUIRED_FIELD" | translate
-    }}</span>
+    <app-validation-messages
+      [question]="question"
+      [form]="form"
+    ></app-validation-messages>
   </div>
 
   <!-- <div class="form-val">

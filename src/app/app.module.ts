@@ -32,7 +32,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     FormModule,
     SharedModule,
     QuestionsModule,
-
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule,

@@ -19,6 +19,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { MultipleInputComponent } from './multiple-input/multiple-input.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NgxMaskModule } from 'ngx-mask';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { SliderComponent } from './slider/slider.component';
+import { ValidationMessagesComponent } from './validation-messages/validation-messages.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     BooleanComponent,
     SelectComponent,
     MultipleInputComponent,
+    SliderComponent,
+    ValidationMessagesComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +51,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     NgxBootstrapMultiselectModule,
     GooglePlaceModule,
     NzToolTipModule,
+    NzSliderModule,
+    NgxMaskModule,
   ],
   exports: [
     TextBoxComponent,
@@ -54,6 +62,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     BooleanComponent,
     SelectComponent,
     MultipleInputComponent,
+    SliderComponent,
   ],
 })
 export class QuestionsModule {}

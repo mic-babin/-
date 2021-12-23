@@ -83,6 +83,13 @@
                     formControlName="{{ question.label.en }}"
                   ></app-select>
                 </div>
+                <!-- Slider -->
+                <div *ngSwitchCase="'slider'">
+                  <app-slider
+                    [question]="question"
+                    formControlName="{{ question.label.en }}"
+                  ></app-slider>
+                </div>
                 <!-- File upload -->
                 <!-- <div *ngSwitchCase="'file'">
                 <app-file-upload></app-file-upload>

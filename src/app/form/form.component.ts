@@ -38,16 +38,10 @@ export class FormComponent implements OnInit, AfterViewChecked {
     this.formTemplate = this.formAction.filterAndSort(this.formTemplate);
     this.formTemplate.forEach((section) => {
       this.form.addControl(section.title.en, this.fb.group([]));
-      // let q = section.questions.filter((question) => !question.isHidden);
-      // q.sort((a, b) => parseFloat(b.order) - parseFloat(a.order));
-
       section.questions.forEach((question) => {
         (this.form.controls[section.title.en] as FormGroup).addControl(
           question.label.en,
-          this.fb.control(
-            null,
-            this.validation.checkRequired(question.required)
-          )
+          this.fb.control(null, this.validation.checkRequired(question))
         );
       });
     });

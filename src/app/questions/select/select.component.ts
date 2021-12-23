@@ -65,7 +65,7 @@ export class SelectComponent
       this.dropdown.settings.selectionLimit = this.question?.selectLimit;
     }
     this.form = this.fb.group({
-      select: [null, this.validation.get(this.question)],
+      [this.question.label.en]: [null, this.validation.get(this.question)],
     });
   }
 
@@ -91,10 +91,8 @@ export class SelectComponent
     }
   }
   validate(): ValidationErrors | null {
-    return this.form?.valid ? null : { text: { valid: false } };
-  }
-
-  validateField(field: string, validation) {
-    return this.validation.validateField(this.form, field, validation);
+    return this.form?.valid
+      ? null
+      : { [this.question.label.en]: { valid: false } };
   }
 }

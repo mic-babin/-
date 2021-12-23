@@ -53,7 +53,7 @@ export class DatePickerComponent
   ngOnInit() {
     this.i18n.setLocale(en_US);
     this.form = this.fb.group({
-      date: [null, this.validation.get(this.question)],
+      [this.question.label.en]: [null, this.validation.get(this.question)],
     });
   }
 
@@ -79,14 +79,12 @@ export class DatePickerComponent
     }
   }
   validate(): ValidationErrors | null {
-    return this.form.valid ? null : { text: { valid: false } };
+    return this.form.valid
+      ? null
+      : { [this.question.label.en]: { valid: false } };
   }
 
   onChange(result: Date): void {
     console.log('onChange: ', result);
-  }
-
-  validateField(field: string, validation) {
-    return this.validation.validateField(this.form, field, validation);
   }
 }

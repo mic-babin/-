@@ -3,10 +3,13 @@
     *ngIf="question.type !== 'password' && !question.unit"
     class="form-control"
     [type]="question.type"
-    [min]="question.minLength"
-    [max]="question.maxLength"
-    formControlName="{{ question.type }}"
+    [min]="question.min"
+    [max]="question.max"
+    [minlength]="question.minLength"
+    [maxlength]="question.maxLength"
+    formControlName="{{ question.label.en }}"
     (blur)="onTouched()"
+    [mask]="question.mask"
   />
   <nz-input-group
     *ngIf="question.type === 'password' || question.unit"
@@ -26,16 +29,20 @@
     "
   >
     <input
+      nzValidateStatus="error"
       nz-input
       [type]="
         question.type === 'password' && hidePassword === false
           ? 'text'
           : question.type
       "
-      [min]="question.minLength"
-      [max]="question.maxLength"
-      formControlName="{{ question.type }}"
+      [min]="question.min"
+      [max]="question.max"
+      [minlength]="question.minLength"
+      [maxlength]="question.maxLength"
+      formControlName="{{ question.label.en }}"
       (blur)="onTouched()"
+      [mask]="question.mask"
     />
   </nz-input-group>
   <ng-template #suffixUnit>
@@ -60,14 +67,11 @@
     ></i>
   </ng-template>
 
-  <span *ngIf="validateField(question.type, 'required')" class="error-msg">{{
-    "REQUIRED_FIELD" | translate
-  }}</span>
-  <span *ngIf="validateField(question.type, 'pattern')" class="error-msg">{{
-    language.get() === "fr"
-      ? question.invalidPattern.fr
-      : question.invalidPattern.en
-  }}</span>
+  <app-validation-messages
+    [question]="question"
+    [form]="form"
+  ></app-validation-messages>
+
   <!-- <div class="form-val">
     {{ form.value | json }}
   </div>

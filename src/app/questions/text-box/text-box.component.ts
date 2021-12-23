@@ -46,7 +46,7 @@ export class TextBoxComponent
   ) {}
   ngOnInit() {
     this.form = this.fb.group({
-      [this.question.type]: [null, this.validation.get(this.question)],
+      [this.question.label.en]: [null, this.validation.get(this.question)],
     });
   }
 
@@ -71,12 +71,11 @@ export class TextBoxComponent
       this.form.enable();
     }
   }
-  validate(): ValidationErrors | null {
-    return this.form.valid ? null : { text: { valid: false } };
-  }
 
-  validateField(field: string, validation) {
-    return this.validation.validateField(this.form, field, validation);
+  validate(): ValidationErrors | null {
+    return this.form.valid
+      ? null
+      : { [this.question.label.en]: { valid: false } };
   }
 
   togglePasswordView() {

@@ -1,11 +1,12 @@
 <form [formGroup]="form" class="mb-2">
   <nz-date-picker
-    formControlName="date"
+    [formControlName]="question.label.en"
     (ngModelChange)="onChange($event)"
   ></nz-date-picker>
-  <div *ngIf="validateField('date', 'required')" class="error-msg">
-    {{ "REQUIRED_FIELD" | translate }}
-  </div>
+  <app-validation-messages
+    [question]="question"
+    [form]="form"
+  ></app-validation-messages>
 
   <!-- <div class="form-val">
     {{ form.value | json }}
