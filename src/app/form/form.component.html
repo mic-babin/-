@@ -25,7 +25,11 @@
           [ngClass]="'col-md-' + question.col"
           *ngFor="let question of section.questions"
         >
-          <div *ngIf="!question.isHidden">
+          <div
+            [ngClass]="
+              question.isHidden && !question.showed ? 'd-none' : 'd-block'
+            "
+          >
             <label class="d-block" [for]="question.label.en">
               {{
                 language.get() == "fr" ? question.label.fr : question.label.en
@@ -101,6 +105,7 @@
         </div>
       </div>
       <div class="steps-action">
+        {{ form.get(section.title.en).valid }}
         <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
           <span>Previous</span>
         </button>

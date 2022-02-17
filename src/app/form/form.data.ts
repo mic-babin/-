@@ -143,17 +143,23 @@ export const formTemplate: Section[] = [
         order: '1',
         required: true,
         isHidden: false,
-        show: {
-          answer: 1,
-          questions: [
-            'Veteran',
-            'Birthday',
-            'Age',
-            'Password',
-            'Phone',
-            'Name',
-          ],
-        },
+        actionRules: [
+          {
+            rule: 'equals',
+            show: {
+              answer: 1,
+              questions: [
+                'Veteran',
+                'Birthday',
+                'Age',
+                'Password',
+                'Phone',
+                'Name',
+              ],
+            },
+          },
+        ],
+
         // multi: true,
         // multiMax: 2,
       },
@@ -169,7 +175,7 @@ export const formTemplate: Section[] = [
         col: '4',
         order: '2',
         required: false,
-        isHidden: true,
+        isHidden: false,
         selectLimit: 2,
         options: {
           en: [

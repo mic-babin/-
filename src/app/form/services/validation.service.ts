@@ -33,6 +33,31 @@ export class ValidationService {
       return question.required ? Validators.required : Validators.nullValidator;
     }
   }
+  // get(question: Question) {
+  //   // if (!question.isHidden) {
+  //   let validators = [
+  //     this.checkRequired(question),
+  //     this.checkPattern(question.pattern),
+  //     this.checkMin(question.min),
+  //     this.checkMax(question.max),
+  //     this.checkMinLength(question.minLength),
+  //     this.checkMaxLength(question.maxLength),
+  //   ];
+  //   return validators;
+
+  //   // } else {
+  //   //   console.log([Validators.nullValidator]);
+  //   //   return [Validators.nullValidator];
+  //   // }
+  // }
+
+  // checkRequired(question: Question) {
+  //   // if (question.isHidden) {
+  //   //   return Validators.nullValidator;
+  //   // } else {
+  //   return question.required ? Validators.required : Validators.nullValidator;
+  //   // }
+  // }
 
   checkPattern(pattern: RegExp | undefined) {
     return pattern ? Validators.pattern(pattern) : Validators.nullValidator;

@@ -1,12 +1,20 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormBuilder,
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  RequiredValidator,
   ValidationErrors,
   Validator,
+  Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormService } from 'src/app/form/services/form.service';
@@ -32,7 +40,12 @@ import { LanguageService } from 'src/app/shared/services/language.service';
   ],
 })
 export class BooleanComponent
-  implements ControlValueAccessor, Validator, OnDestroy, OnInit
+  implements
+    ControlValueAccessor,
+    Validator,
+    OnDestroy,
+    OnInit,
+    AfterContentChecked
 {
   @Input() question: Question;
 
@@ -43,33 +56,41 @@ export class BooleanComponent
     private fb: FormBuilder,
     private validation: ValidationService,
     public language: LanguageService,
-    private formAction: FormService
+    private formService: FormService
   ) {}
+
   ngOnInit() {
     this.form = this.fb.group({
       [this.question.label.en]: [null, this.validation.get(this.question)],
     });
 
     this.form.get(this.question.label.en).valueChanges.subscribe((answer) => {
-      console.log(answer);
-      this.formAction.show(this.question, answer);
+      this.formService.checkAction(this.question, answer);
     });
+  }
+
+  ngAfterContentChecked() {
+    this.formService.updateRequiredValidator(this.form, this.question);
   }
 
   registerOnChange(onChange: any) {
     this.onChangeSub = this.form.valueChanges.subscribe(onChange);
   }
+
   ngOnDestroy() {
     this.onChangeSub.unsubscribe();
   }
+
   writeValue(value: any) {
     if (value) {
       this.form.setValue(value);
     }
   }
+
   registerOnTouched(onTouched: any) {
     this.onTouched = onTouched;
   }
+
   setDisabledState(disabled: boolean) {
     if (disabled) {
       this.form.disable();
@@ -77,6 +98,7 @@ export class BooleanComponent
       this.form.enable();
     }
   }
+
   validate(): ValidationErrors | null {
     return this.form.valid
       ? null

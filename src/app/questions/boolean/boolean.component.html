@@ -1,5 +1,9 @@
 <form [formGroup]="form">
-  <nz-radio-group [formControlName]="question.label.en" nzButtonStyle="solid">
+  <nz-radio-group
+    [formControlName]="question.label.en"
+    nzButtonStyle="solid"
+    (click)="onTouched()"
+  >
     <label nz-radio-button nzValue="1">Yes</label>
     <label nz-radio-button nzValue="0">No</label>
   </nz-radio-group>
@@ -7,11 +11,11 @@
     [question]="question"
     [form]="form"
   ></app-validation-messages>
-  <!-- <div class="form-val">
+  <div class="form-val">
     {{ form.value | json }}
   </div>
 
   <div class="form-val">
     {{ form.valid | json }}
-  </div> -->
+  </div>
 </form>

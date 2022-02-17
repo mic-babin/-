@@ -6,7 +6,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from './services/validation.service';
 import * as data from './form.data';
 import { Section } from '../models/section';
@@ -30,12 +30,12 @@ export class FormComponent implements OnInit, AfterViewChecked {
     private validation: ValidationService,
     private renderer: Renderer2,
     public language: LanguageService,
-    private formAction: FormService
+    private formService: FormService
   ) {}
 
   ngOnInit() {
     this.form = this.fb.group({});
-    this.formTemplate = this.formAction.filterAndSort(this.formTemplate);
+    this.formTemplate = this.formService.filterAndSort(this.formTemplate);
     this.formTemplate.forEach((section) => {
       this.form.addControl(section.title.en, this.fb.group([]));
       section.questions.forEach((question) => {
@@ -43,6 +43,54 @@ export class FormComponent implements OnInit, AfterViewChecked {
           question.label.en,
           this.fb.control(null, this.validation.checkRequired(question))
         );
+      });
+    });
+    this.form.valueChanges.subscribe(() => {
+      this.formTemplate.forEach((section) => {
+        section.questions.forEach((question) => {
+          // console.log('section', this.form.controls[section.title.en].valid);
+          // console.log(
+          //   'Showed:',
+          //   question.showed,
+          //   'Hidden:',
+          //   question.isHidden,
+          //   'Required:',
+          //   (this.form.controls[section.title.en] as FormGroup).controls[
+          //     question.label.en
+          //   ].hasValidator(Validators.required),
+          //   'Valid:',
+          //   (this.form.controls[section.title.en] as FormGroup).controls[
+          //     question.label.en
+          //   ].valid
+          // );
+          // if (question.isHidden && !question.showed) {
+          //   (this.form.controls[section.title.en] as FormGroup).controls[
+          //     question.label.en
+          //   ].removeValidators(Validators.required);
+          //   (this.form.controls[section.title.en] as FormGroup).controls[
+          //     question.label.en
+          //   ].updateValueAndValidity;
+          //   console.log(
+          //     'Showed:',
+          //     question.showed,
+          //     'Hidden:',
+          //     question.isHidden,
+          //     'Required:',
+          //     (this.form.controls[section.title.en] as FormGroup).controls[
+          //       question.label.en
+          //     ].hasValidator(Validators.required),
+          //     'Valid:',
+          //     (this.form.controls[section.title.en] as FormGroup).controls[
+          //       question.label.en
+          //     ].valid
+          //   );
+          //   console.log(
+          //     (this.form.controls[section.title.en] as FormGroup).controls[
+          //       question.label.en
+          //     ]
+          //   );
+          // }
+        });
       });
     });
 
